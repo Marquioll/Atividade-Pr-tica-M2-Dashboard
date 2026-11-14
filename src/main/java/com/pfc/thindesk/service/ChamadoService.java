@@ -13,6 +13,8 @@ public class ChamadoService {
     private ChamadoRepository chamadoRepository;
 
     public Chamado criarChamado(Chamado chamado) {
+        chamado.setCriadoEm(java.time.Instant.now());
+        chamado.setConcluidoEm("CONCLUIDO".equals(chamado.getStatus()) ? chamado.getCriadoEm() : null);
         return chamadoRepository.save(chamado);
     }
 
@@ -24,6 +26,11 @@ public class ChamadoService {
         return chamadoRepository.findById(id)
                 .map(chamado -> {
                     chamado.setDescricao(chamadoAtualizado.getDescricao());
+                    if (!"CONCLUIDO".equals(chamadoAtualizado.getStatus())) {
+                        chamado.setConcluidoEm(null);
+                    } else if (!"CONCLUIDO".equals(chamado.getStatus())) {
+                        chamado.setConcluidoEm(java.time.Instant.now());
+                    }
                     chamado.setStatus(chamadoAtualizado.getStatus());
                     chamado.setTipo(chamadoAtualizado.getTipo());
                     chamado.setTecnico(chamadoAtualizado.getTecnico());

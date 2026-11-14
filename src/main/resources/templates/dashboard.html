@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard administrativo | Thindesk</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f2f5fa;color:#17253e;font:16px system-ui,sans-serif}
+header{background:#17253e;color:white;padding:20px max(5vw,20px);display:flex;justify-content:space-between;gap:20px}
+header a{color:#c9ddff}main{max-width:1200px;margin:auto;padding:24px}h1{margin-top:0}
+form,.card{background:white;padding:20px;border:1px solid #dde5f0;border-radius:12px}
+form,.cards{display:flex;flex-wrap:wrap;gap:14px;align-items:end}label{display:grid;gap:6px}
+input,select,button{font:inherit;padding:8px;border:1px solid #a5b5cb;border-radius:6px}
+button{background:#194da4;color:white;cursor:pointer}button:disabled{opacity:.6}
+.cards{align-items:stretch;margin:16px 0}.cards .card{flex:1;min-width:140px}.metric{font-size:2rem;font-weight:700}
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.row{display:grid;grid-template-columns:minmax(105px,1fr) 2fr auto;align-items:center;gap:10px;margin:8px 0}
+.track{background:#e9eff8;height:14px;border-radius:8px;overflow:hidden}.bar{display:block;background:#2664c5;height:100%}
+#serie{max-height:360px;overflow:auto}.muted{color:#52647e}@media(max-width:680px){.columns{grid-template-columns:1fr}}
+</style>
+<script defer th:src="@{/js/dashboard.js}"></script>
+</head>
+<body>
+<header><strong>Thindesk</strong><nav><a th:href="@{/}">Início</a> · <a th:href="@{/chamados}">Chamados</a></nav></header>
+<main>
+<h1>Dashboard administrativo</h1>
+<form id="filtros" th:data-api="@{/api/dashboard/}">
+<label>Data inicial <input name="inicio" type="date"></label>
+<label>Data final <input name="fim" type="date"></label>
+<label>Situação <select name="status"><option value="">Todas</option></select></label>
+<label>Tipo <select name="tipo"><option value="">Todos</option></select></label>
+<button type="submit">Aplicar filtros</button>
+<button type="button" id="atualizar">Atualizar dados</button>
+</form>
+<p id="mensagem" role="status"></p>
+<section id="painel" hidden>
+<div class="cards">
+<div class="card">Total de chamados<div class="metric" id="total"></div></div>
+<div class="card">Abertos<div class="metric" id="abertos"></div></div>
+<div class="card">Em andamento<div class="metric" id="andamento"></div></div>
+<div class="card">Atendidos<div class="metric" id="atendidos"></div></div>
+</div>
+<section class="card"><h2>Atendimentos por dia</h2><div id="serie"></div></section>
+<div class="columns">
+<section class="card"><h2>Situação dos chamados</h2><div id="situacoes"></div></section>
+<section class="card"><h2>Tipos mais atendidos</h2><div id="ranking"></div></section>
+</div>
+<p class="muted">O período usa a abertura para o total e a situação, e a conclusão para os atendimentos e o ranking. Datas no horário de São Paulo.</p>
+<p class="muted" id="legado"></p>
+</section>
+</main>
+</body>
+</html>

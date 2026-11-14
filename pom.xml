@@ -75,7 +75,7 @@
                     <compilerArgs>
                         <arg>-Xlint:deprecation</arg>
                     </compilerArgs>
-                    <release>23</release>
+                    <release>21</release>
                 </configuration>
             </plugin>
             <plugin>
