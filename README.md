@@ -20,5 +20,4 @@ mongosh "mongodb://localhost:27017/thindesk" --file scripts/dados-demo.js
 
 O script insere ou regrava somente os seis identificadores da demonstração. Em um banco com registros reais, os indicadores incluem todos os chamados compatíveis com a consulta.
 
-- [Documentação da atividade](docs/atividade.md)
-- [Roteiro de demonstração](docs/roteiro-video.md)
+- [Relatório da atividade (PDF)](relatorio-thindesk.pdf)
