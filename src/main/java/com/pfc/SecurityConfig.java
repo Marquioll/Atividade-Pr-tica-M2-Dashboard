@@ -16,8 +16,13 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/login", "/css/**", "/dist/**", "/plugins/**", "/js/**", "/images/**").permitAll() // Permitir acesso à página de login e arquivos estáticos
+                .requestMatchers("/admin/dashboard", "/api/dashboard/**").hasRole("ADMIN")
                 .anyRequest().authenticated() // Exigir autenticação para qualquer outra página
             )
+            .exceptionHandling(errors -> errors.defaultAuthenticationEntryPointFor(
+                new org.springframework.security.web.authentication.HttpStatusEntryPoint(
+                    org.springframework.http.HttpStatus.UNAUTHORIZED),
+                new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/api/dashboard/**")))
             .formLogin(form -> form
                 .loginPage("/login") // Definir a URL da página de login personalizada
                 .defaultSuccessUrl("/", true) // Redirecionar para /home após login bem-sucedido
