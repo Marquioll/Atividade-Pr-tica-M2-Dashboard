@@ -14,6 +14,13 @@ public class Chamado{
     private String tipo;
     private String tecnico;
     private String usuario;
+    private java.time.Instant criadoEm;
+    private java.time.Instant concluidoEm;
+
+    public java.time.Instant getCriadoEm() { return criadoEm; }
+    public void setCriadoEm(java.time.Instant data) { criadoEm = data; }
+    public java.time.Instant getConcluidoEm() { return concluidoEm; }
+    public void setConcluidoEm(java.time.Instant data) { concluidoEm = data; }
 
     public String getId() {
         return id;
